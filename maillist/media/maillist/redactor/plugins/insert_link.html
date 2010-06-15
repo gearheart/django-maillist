@@ -1,0 +1,29 @@
+<form id="redactorInsertLinkForm">
+<table class="redactor_ruler" style="margin-bottom: 6px;">
+	<tr>
+		<td nowrap="nowrap" class="mini"><input value="link" name="redactor_link" id="redactor_link_id_url" type="radio" onclick="$('#redactor_link_url_name').text('URL')" checked="checked">&nbsp;<label for="redactor_link_id_url">Адрес URL</label></td>
+		<td nowrap="nowrap" class="mini" width="100%"><input value="email" name="redactor_link" id="redactor_link_id_email" onclick="$('#redactor_link_url_name').text('Адрес. эл. почты')"  type="radio">&nbsp;<label for="redactor_link_id_email">Адрес эл. почты</label></td>
+	</tr>
+</table>
+
+<table class="redactor_ruler">
+	<tr>
+		<td nowrap id="redactor_link_url_name" class="mini">URL</td>
+		<td width="100%"><input name="redactor_link_url" id="redactor_link_url" size="20" /></td>
+	</tr>
+	<tr>
+		<td nowrap class="mini">Текст</td>
+		<td><input name="redactor_link_text" id="redactor_link_text" size="20" /></td>
+	</tr>
+	<tr>
+		<td nowrap class="mini">Подсказка</td>
+		<td><input name="redactor_link_title" id="redactor_link_title" size="20"  /></td>
+	</tr>
+</table>
+
+
+</form>
+
+
+<input type="button" name="" id="" value="Вставить" onclick="RedactorActive.insertLink();" />
+<input type="button" name="" id="redactorCloseModal" value="Отменить"  />

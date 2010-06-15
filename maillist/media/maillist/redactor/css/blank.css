@@ -1,0 +1,80 @@
+
+html {
+	margin: 0;
+	padding: 0;
+
+}
+* html, body {
+	/*
+	overflow-x:hidden;
+	*/
+}
+body {
+	font-family: "Trebuchet MS", Verdana, Arial, Tahoma, sans-serif;      
+	font-size: 90%;
+	margin: 0;
+	padding: 0;
+}
+
+blockquote {
+	padding-left: 10px;
+	border-left: 3px solid #ddd;
+	margin: 5px;
+}
+div {
+	padding: 5px;
+	margin: 5px;
+	line-height: 18px;
+}
+p {
+	padding: 5px;
+	margin: 5px;
+	line-height: 18px;
+}
+table {
+	border-collapse: collapse;
+	font-size: 1em;
+	margin: 5px;	
+}
+table td {
+    background-color: #f7f7f7;
+	 border: 1px solid #ddd;
+}
+code, pre { font: 1.2em/1 "Courier New", Courier, monospace; margin: 5px; padding: 1px 2px; background: #f5f5f5; }
+pre { border: 1px dashed #ccc; line-height: 1.7em; margin: 5px; padding: 5px; font-size: .9em; background: #f5f5f5;  }
+
+
+div.redactor_video_box {
+	width: 120px;
+	height: 120px;
+	background: url(../i/video_box.png) center no-repeat #ffffcc !important;	
+	margin: 5px;
+}
+div.redactor_video_box object, div.redactor_video_box embed{
+	display: none;
+}
+/* HEADER */
+h1, h2, h3, h4,h5 {
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+	font-weight: normal;
+	margin: 6px 8px;
+	padding: 0px;
+}
+
+h1 {
+	font-size: 22px;
+	margin-bottom: 12px;
+}
+h2 {
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+h3 {
+	font-size: 16px;
+	margin-bottom: 8px;
+}
+h4 {
+	font-size: 12px;
+	font-weight: bolder;
+}
+/* END HEADER */

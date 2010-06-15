@@ -1,0 +1,29 @@
+<form id="redactorInsertTableForm">
+<table class="redactor_ruler">
+	<tr>
+		<td nowrap>Строки</td>
+		<td><input name="redactor_insert_table_rows" id="redactor_insert_table_rows" size="5" value="2" /></td>
+		<td nowrap>Столбцы</td>
+		<td width="100%"><input name="redactor_insert_table_cell" id="redactor_insert_table_cell" size="5" value="2" /></td>
+
+	</tr>
+	<tr>
+		<td nowrap>Ширина</td>
+		<td colspan="3">
+			<input name="redactor_insert_table_width" id="redactor_insert_table_width" size="5" value="100" />
+			<select name="redactor_insert_table_units" id="redactor_insert_table_units">
+				<option value="%">проценты</option>
+				<option value="px">пиксели</option>
+			</select>
+		</td>
+	</tr>
+</table>
+
+
+</form>
+
+
+<p>
+<input type="button" name="" id="" value="Вставить" onclick="RedactorActive.insertTable();" />&nbsp;&nbsp;
+<input type="button" name="" id="redactorCloseModal" value="Отменить"  />
+</p>
