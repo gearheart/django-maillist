@@ -3,4 +3,4 @@
 
 {{ mail.content|safe }}
 
-<h3><a href="{% url maillist_unsubscribe maillist_id=mail.maillist.id subscriber_id=subscriber.id hash=unsubscribe_hash %}">{% trans "Unsubscribe" %}</a></h3>
+<h3><a href="http://{{ site.domain }}{% url maillist_unsubscribe maillist_id=mail.maillist.id subscriber_id=subscriber.id hash=unsubscribe_hash %}">{% trans "Unsubscribe" %}</a></h3>
