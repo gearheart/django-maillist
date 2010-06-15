@@ -1,3 +1,5 @@
+import os
+
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext as _
@@ -69,7 +71,7 @@ def maillist_upload(request):
         if form.is_valid():
             file = form.cleaned_data['file']
             path = os.path.join(
-                settings.get('MAILLIST_UPLOAD_IMAGES', 'maillist/images/'),
+                getattr(settings, 'MAILLIST_UPLOAD_IMAGES', 'maillist/images/'),
                 file.name)
             real_path = default_storage.save(path, file)
             return HttpResponse(
