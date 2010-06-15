@@ -34,7 +34,7 @@ def maillist_subscribe(request, maillist_id, next=None):
             messages.info(request, message)
             return redirect(request.POST.get('next') or next or 'maillist_list')
     else:
-        form = SubscriberForm()
+        form = EmailForm()
 
     return {
         'maillist': maillist,
