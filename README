@@ -1,0 +1,12 @@
+This is an applications to handle maillists.
+
+To install:
+  1. Install as any other python package - setup.py, pip..
+  2. Add 'maillist' to INSTALLED_APPS
+  3. Symlink mailist/media/maillist to MEDIA_ROOT 
+
+Package includes simple test project, maillist_test. To run it:
+  1. Symlink application media (step 3 of installation).
+  2. python manage.py syncdb.
+  3. python manage.py loaddata fixtures/test_data.json.
+  4. python manage.py runserver
