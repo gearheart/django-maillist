@@ -13,4 +13,8 @@ urlpatterns = patterns('',
     url(r'^(?P<maillist_id>\d+)/$',
         views.maillist_subscribe,
         name='maillist_subscribe'),
+
+    url(r'^admin/upload/$',
+        views.maillist_upload,
+        name='maillist_upload'),
 )

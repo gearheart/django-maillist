@@ -4,3 +4,5 @@ from django.utils.translation import ugettext as _
 class EmailForm(forms.Form):
     email = forms.EmailField(_("email"))
 
+class ImageForm(forms.Form):
+    file = forms.ImageField()

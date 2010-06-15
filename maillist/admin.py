@@ -8,6 +8,10 @@ from maillist.widgets import JQueryEditor
 class MaillistAdmin(admin.ModelAdmin):
     list_display = ('name', 'subscrubers_count', 'last_email')
 
+    formfield_overrides = {
+        TextField: {'widget': JQueryEditor},
+    }
+
     def last_email(self, obj):
         last_email = obj.mails.all()[:1]
         if len(last_email):
@@ -24,6 +28,11 @@ class MailAdmin(admin.ModelAdmin):
     list_display = ('subject', 'create_date', 'publish_date', 'maillist')
     list_filter = ('maillist', )
 
+    formfield_overrides = {
+        TextField: {'widget': JQueryEditor},
+    }
+
 admin.site.register(models.Maillist, MaillistAdmin)
 admin.site.register(models.Mail, MailAdmin)
+admin.site.register(models.Subscriber)
 
