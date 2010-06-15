@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-    {% blocktrans %}If you want to unsubscribe from {{ maillist }}, click the button.{% endtrans %}
+    {% blocktrans %}If you want to unsubscribe from {{ maillist }}, click the button.{% endblocktrans %}
     <form method="post" action="">
         {% csrf_token %}
         <input type="submit" name="" value="Unsubscribe" />
