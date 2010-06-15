@@ -14,7 +14,7 @@ urlpatterns = patterns('',
         views.maillist_subscribe,
         name='maillist_subscribe'),
 
-    url(r'^(?P<maillist_id>\d+)/(?P<email>[^/]+)/(?P<hash>\w+)/$',
+    url(r'^(?P<maillist_id>\d+)/(?P<subscriber_id>\d+)/(?P<hash>\w+)/$',
         views.maillist_unsubscribe,
         name='maillist_unsubscribe'),
 

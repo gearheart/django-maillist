@@ -23,9 +23,9 @@ class Maillist(models.Model):
             'maillist_id': self.id,
         })
 
-    def unsubscibe_hash(self, email):
+    def unsubscibe_hash(self, subscriber):
         return sha_constructor(
-            str(self.id) + email + settings.SECRET_KEY
+            str(self.id) + subscriber.email + settings.SECRET_KEY
         ).hexdigest()
 
 
