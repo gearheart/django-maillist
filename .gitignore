@@ -2,3 +2,5 @@
 maillist/media/maillist/images/*
 \.DS_Store
 dev.db
+\#*\#
+.\#*\#
