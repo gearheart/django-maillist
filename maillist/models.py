@@ -81,9 +81,9 @@ class Mail(models.Model):
         else:
             success = True
 
-        EmailLog.objects.get_or_create(subscriber=subscriber, mail=self,
-                                                           success=success)
-
+        log, _ = EmailLog.objects.get_or_create(subscriber=subscriber, mail=self)
+        log.success = True
+        log.save()
 
 class Subscriber(models.Model):
     maillist = models.ForeignKey(Maillist, verbose_name=_('maillist'),

@@ -1,9 +1,11 @@
+from datetime import datetime, timedelta
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core import mail
 from django.contrib.webdesign.lorem_ipsum import paragraph
 
-from maillist.models import Maillist, Mail, Subscriber
+from maillist.models import Maillist, Mail, Subscriber, EmailLog
+from maillist.command import send_mails
 
 
 class MaillistTestCase(TestCase):
@@ -13,11 +15,12 @@ class MaillistTestCase(TestCase):
             description=paragraph()
         )
 
-    def _create_mail(self, maillist):
+    def _create_mail(self, maillist, days=0):
         return Mail.objects.create(
             maillist=maillist,
             subject='test-mail-subject-%s' % Mail.objects.count(),
-            content=paragraph()
+            content=paragraph(),
+            publish_date = datetime.now() + timedelta(days)
         )
 
     def test_list(self):
@@ -76,5 +79,52 @@ class MaillistTestCase(TestCase):
 
         self.assertEquals(maillist.subscribers.count(), 0)
 
-    def test_command(self):
-        pass
+    def test_send_mails(self):
+        maillist = self._create_maillist()
+        subscriber, _ = Subscriber.objects.get_or_create(
+            maillist=maillist,
+            email='test@mail.com'
+        )
+        subscriber.subscription_date -= timedelta(10)
+        subscriber.save()
+
+        other_subscriber, _ = Subscriber.objects.get_or_create(
+            maillist=maillist,
+            email='test1@mail.com'
+        )
+        other_subscriber.subscription_date -= timedelta(10)
+        other_subscriber.save()
+
+        third_subscriber, _ = Subscriber.objects.get_or_create(
+            maillist=maillist,
+            email='test11@mail.com'
+        )
+        third_subscriber.subscription_date -= timedelta(10)
+        third_subscriber.save()
+
+        old_mail = self._create_mail(maillist, days=-20) # 0
+        not_old_mail = self._create_mail(maillist, days=-5) # 1
+        new_mail = self._create_mail(maillist, days=5) # 2
+
+        sent_mail = self._create_mail(maillist, days=-5) # 3
+        EmailLog.objects.create(mail=sent_mail, subscriber=subscriber, success=True)
+        EmailLog.objects.create(mail=sent_mail, subscriber=other_subscriber, success=True)
+        EmailLog.objects.create(mail=sent_mail, subscriber=third_subscriber, success=True)
+
+        not_sent_mail = self._create_mail(maillist, days=-4) # 4
+        EmailLog.objects.create(mail=not_sent_mail, subscriber=subscriber, success=False)
+        EmailLog.objects.create(mail=not_sent_mail, subscriber=other_subscriber, success=True)
+
+
+        send_mails()
+
+        for log in EmailLog.objects.all():
+            print log.mail.subject, log.subscriber.email, log.success
+
+        self.assertEquals(len(mail.outbox), 5)
+        self.assertEquals(EmailLog.objects.count(), 9)
+
+        for subscriber in (subscriber, other_subscriber, third_subscriber):
+            self.assertEquals(EmailLog.objects.filter(subscriber=subscriber, mail=not_old_mail).count(), 1)
+            self.assertEquals(EmailLog.objects.filter(subscriber=subscriber, mail=sent_mail).count(), 1)
+            self.assertEquals(EmailLog.objects.filter(subscriber=subscriber, mail=not_sent_mail).count(), 1)
