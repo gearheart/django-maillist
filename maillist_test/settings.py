@@ -98,6 +98,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 )
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 try:
     from settings_local import *
 except ImportError:
