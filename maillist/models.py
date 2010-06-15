@@ -2,6 +2,8 @@ import datetime
 
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.utils.hashcompat import sha_constructor
+from django.conf import settings
 
 
 class Maillist(models.Model):
@@ -20,6 +22,12 @@ class Maillist(models.Model):
         return ('maillist_subscribe', (), {
             'maillist_id': self.id,
         })
+
+    def unsubscibe_hash(self, email):
+        return sha_constructor(
+            str(self.id) + email + settings.SECRET_KEY
+        ).hexdigest()
+
 
 class Mail(models.Model):
     maillist = models.ForeignKey(Maillist, verbose_name=_('maillist'),

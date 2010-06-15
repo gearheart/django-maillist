@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% blocktrans %}If you want to unsubscribe from {{ maillist }}, click the button.{% endtrans %}
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="submit" name="" value="Unsubscribe" />
+    </form>
+    <a href="{% url maillist_list %}">{% trans "Go to maillists" %}</a>
+{% endblock %}

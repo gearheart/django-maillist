@@ -41,6 +41,23 @@ def maillist_subscribe(request, maillist_id, next=None):
         'form': form,
     }
 
+
+@render_to('maillist/maillist_unsubscribe.html')
+def maillist_unsubscribe(request, maillist_id, email, hash, next=None):
+    maillist = get_object_or_404(Maillist, id=maillist_id)
+    if maillist.unsubscibe_hash(email) != hash:
+        raise Http404()
+
+    if request.method == 'POST':
+        Subscriber.filter(maillist=maillist, email=email).delete()
+        messages.info(request, _('You are unsubscribed from %s' % maillist))
+        return redirect(request.POST.get('next') or next or 'maillist_list')
+
+    return {
+        'maillist': maillist,
+        'email': email,
+    }
+
 @csrf_exempt
 @require_POST
 @user_passes_test(lambda u: u.is_staff)
