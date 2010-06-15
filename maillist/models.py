@@ -82,7 +82,7 @@ class Mail(models.Model):
             success = True
 
         log, _ = EmailLog.objects.get_or_create(subscriber=subscriber, mail=self)
-        log.success = True
+        log.success = success
         log.save()
 
 class Subscriber(models.Model):
