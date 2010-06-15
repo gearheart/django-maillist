@@ -1,0 +1,3 @@
+*.pyc
+maillist/media/maillist/images/*
+\.DS_Store
