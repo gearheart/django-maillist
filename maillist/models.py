@@ -15,6 +15,12 @@ class Maillist(models.Model):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('maillist_subscribe', (), {
+            'maillist_id': self.id,
+        })
+
 class Mail(models.Model):
     maillist = models.ForeignKey(Maillist, verbose_name=_('maillist'),
                                                         related_name='mails')

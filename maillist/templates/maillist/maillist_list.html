@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1>{% trans "Maillists" %}</h1>
+
+{% if maillist_list|length %}
+<table>
+    {% for maillist in maillist_list %}
+        <tr>
+            <td><h3>{{ maillist}}</h3>
+            <td>{{ maillist.description|safe }}
+            <td><a href="{{ maillist.get_absolute_url }}">{% trans "subscribe" %}</a></td>
+    {% endfor %}
+</table>
+{% else %}
+    <h2>{% trans "There are no maillists, return later" %}</h2>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{{ maillist }}</h1>
+    <div>
+        {{ maillist.description|safe }}
+    </div>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" name="" value="{% trans "Subscribe" %}" />
+    </form>
+{% endblock %}
