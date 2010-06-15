@@ -1,3 +1,4 @@
+from django.utils.dateformat import format
 from django.contrib import admin
 from django.db.models import TextField
 from django.utils.translation import ugettext as _
@@ -15,7 +16,7 @@ class MaillistAdmin(admin.ModelAdmin):
     def last_email(self, obj):
         last_email = obj.mails.all()[:1]
         if len(last_email):
-            return '%s (%s)' % (last_email[0].publish_date, last_email[0].name)
+            return '%s (%s)' % (last_email[0].publish_date, last_email[0])
 
         return _('Mail list is empty')
 
