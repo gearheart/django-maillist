@@ -1,0 +1,6 @@
+{% load i18n %}
+<h1>{{ mail.subject }}</h1>
+
+{{ mail.content|safe }}
+
+<h3><a href="{% url maillist_unsubscribe maillist_id=mail.maillist.id subscriber_id=subscriber.id hash=unsubscribe_hash %}">{% trans "Unsubscribe" %}</a></h3>

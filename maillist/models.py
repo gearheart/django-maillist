@@ -4,6 +4,9 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django.utils.hashcompat import sha_constructor
 from django.conf import settings
+from django.contrib.sites.models import Site
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 
 class Maillist(models.Model):
@@ -53,6 +56,33 @@ class Mail(models.Model):
         if not self.publish_date:
             self.publish_date = self.create_date
         super(Mail, self).save(*args, **kwargs)
+
+    def send(self, subscriber):
+        context = {
+            'mail': self,
+            'maillist': self.maillist,
+            'unsubscribe_hash': self.maillist.unsubscibe_hash(subscriber),
+            'subscriber': subscriber,
+            'site': Site.objects.get_current(),
+        }
+        subject = render_to_string('maillist/maillist_subject.txt', context)
+        # Email subject *must not* contain newlines
+        subject = ''.join(subject.splitlines())
+
+        message = render_to_string('maillist/maillist_mail.html', context)
+
+        msg = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL,
+                                                        [subscriber.email])
+        msg.content_subtype = "html"
+        try:
+            msg.send()
+        except:
+            success = False
+        else:
+            success = True
+
+        EmailLog.objects.get_or_create(subscriber=subscriber, mail=self,
+                                                           success=success)
 
 
 class Subscriber(models.Model):
