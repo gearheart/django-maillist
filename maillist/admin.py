@@ -34,5 +34,3 @@ class MailAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Maillist, MaillistAdmin)
 admin.site.register(models.Mail, MailAdmin)
-admin.site.register(models.Subscriber)
-
